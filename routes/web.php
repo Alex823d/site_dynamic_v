@@ -96,30 +96,19 @@ Route::prefix('{locale?}')
 
         Route::get('', [HomeController::class, 'index'])->name('home.index');
 
-        // Route::get('vision', [HomeController::class, 'vision'])->name('home.vision');
-        Route::get('values', [HomeController::class, 'value'])->name('home.value');
 
-        Route::get('founder', [HomeController::class, 'mission'])->name('home.mission');
+        Route::get('investment', [\App\Http\Controllers\Client\InvestmentController::class, 'index'])->name('investment.index');
 
-        Route::get('company_history', [HomeController::class, 'company'])->name('home.company');
+        Route::get('education', [\App\Http\Controllers\Client\EducationController::class, 'index'])->name('education.index');
 
-        Route::get('locations', [HomeController::class, 'location'])->name('home.location');
+        Route::prefix('company')->name('company.')->group(function (){
+            Route::get('about-us', [\App\Http\Controllers\Client\CompanyController::class, 'about_us'])->name('about_us');
+            Route::get('testimonials', [\App\Http\Controllers\Client\CompanyController::class, 'testimonials'])->name('testimonials');
+            Route::get('legal-docs', [\App\Http\Controllers\Client\CompanyController::class, 'legal_docs'])->name('legal_docs');
+            Route::get('faq', [\App\Http\Controllers\Client\CompanyController::class, 'faq'])->name('faq');
+            Route::get('contact-us', [\App\Http\Controllers\Client\CompanyController::class, 'contact_us'])->name('contact_us');
+        });
 
-
-
-        Route::get('products', [\App\Http\Controllers\Client\CatalogController::class, 'index'])->name('client.product.index');
-        Route::get('products/{product}/show', [\App\Http\Controllers\Client\CatalogController::class, 'show'])->name('client.product.show');
-
-        Route::match(['get','post'],'contact', [\App\Http\Controllers\Client\ContactController::class, 'index'])->name('contact.index');
-
-
-        Route::get('news',[\App\Http\Controllers\Client\NewsController::class,'index'])->name('news.index');
-        Route::get('news/{blog}/show',[\App\Http\Controllers\Client\NewsController::class,'show'])->name('client.news.show');
-
-        Route::get('wellness',[\App\Http\Controllers\Client\WellnessController::class,'index'])->name('client.wellness.index');
-        Route::get('wellness/{wellness}/show',[\App\Http\Controllers\Client\WellnessController::class,'show'])->name('client.wellness.show');
-
-        // Route::get('members',[\App\Http\Controllers\Client\TeamController::class,'index'])->name('client.member.index');
 
 
     });

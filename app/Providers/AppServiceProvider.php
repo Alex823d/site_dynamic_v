@@ -11,6 +11,7 @@ namespace App\Providers;
 use App\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Language;
 
 /**
  * Class AppServiceProvider
@@ -37,6 +38,17 @@ class AppServiceProvider extends ServiceProvider
     {
         Request::macro('breadcrumbs',function () {
             return new Breadcrumbs($this);
+        });
+
+        view()->composer('client.layout.includes.header.header',function($view){
+            $langs = Language::all();
+
+            $result = [];
+            foreach ($langs as $lang){
+                $result[$lang->id]['title'] = $lang->title;
+                $result[$lang->id]['locale'] = $lang->locale;
+            }
+            $view->with('langs',$result);
         });
     }
 }
