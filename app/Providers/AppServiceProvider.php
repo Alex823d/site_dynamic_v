@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('client.layout.includes.header.header',function($view){
-            $langs = Language::all();
+            $langs = Language::select('id','title','locale')->get();
 
             $result = [];
             foreach ($langs as $lang){
